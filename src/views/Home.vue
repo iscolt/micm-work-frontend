@@ -4,14 +4,14 @@
       <el-col :span="3"><div class="grid-content bg-purple">.</div></el-col>
       <el-col :span="18">
         <el-row :gutter="12">
-          <el-tabs :tab-position="tabPosition" style="overflow:auto">
-            <el-tab-pane label="进行中">
+          <el-tabs :tab-position="tabPosition" value="1" @tab-click="handleClick" style="overflow:auto">
+            <el-tab-pane label="进行中" name="1">
               <Homework :list="homework"/>
             </el-tab-pane>
-            <el-tab-pane label="已结束">
+            <el-tab-pane label="已结束" name="2">
               <Homework :list="homework"/>
             </el-tab-pane>
-            <el-tab-pane label="未开始">
+            <el-tab-pane label="全部" name="-1">
               <Homework :list="homework"/>
             </el-tab-pane>
           </el-tabs>
@@ -32,12 +32,13 @@ export default {
     Homework,
   },
   created() {
-    // this.fetch(1)
+    this.fetch(this.status)
   },
   data() {
     return {
       homework: [1,2,3],
       tabPosition: 'left',
+      status: 1,
     }
   },
   methods: {
@@ -49,6 +50,10 @@ export default {
           this.$message.error(res.message)
         }
       })
+    },
+    handleClick(obj) {
+      this.status = obj.name
+      this.fetch(obj.name)
     }
   },
 }

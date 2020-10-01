@@ -1,11 +1,14 @@
 import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 
+
+export const serviceUrl = "http://localhost:8082/api"
+
 // create an axios instance
 const service = axios.create({
     // 内网穿透接口
     // baseURL: "http://31v444t816.wicp.vip/api", // url = base url + request url
-    baseURL: "http://localhost:8082/api", // url = base url + request url
+    baseURL: serviceUrl, // url = base url + request url
     // withCredentials: true, // send cookies when cross-domain requests
     timeout: 50000 // request timeout
 })

@@ -7,22 +7,24 @@ export function listByStatus(status) {
     })
 }
 
-export function bindEmail(data) {
+export function add(data) {
     return request({
-        url: '/student/bind/email',
-        method: 'GET',
+        url: '/homework',
+        method: 'POST',
         data: data,
     })
 }
 
-/**
- * 冻结/解冻
- * @param stuId
- * @returns {AxiosPromise}
- */
-export function freeze(stuId) {
+export function del(id) {
     return request({
-        url: `/student/freeze/${stuId}`,
+        url: '/homework/' + id,
+        method: 'DELETE',
+    })
+}
+
+export function subDetail(id) {
+    return request({
+        url: `/homework/student/${id}`,
         method: 'GET',
     })
 }

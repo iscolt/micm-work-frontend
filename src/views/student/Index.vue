@@ -6,7 +6,7 @@
         <el-row :gutter="12">
           <el-upload
               class="upload-demo"
-              action="http://localhost:8082/api/student/import/excel"
+              :action="serviceUrl + '/student/import/excel'"
               :headers="header"
               :on-preview="handlePreview"
               :on-remove="handleRemove"
@@ -43,28 +43,16 @@
             </el-table-column>
             <el-table-column
                 prop=""
-                width="200"
-                label="状态">
-              <template slot-scope="scope">
-                <el-tag :type="scope.row.deleted ? 'danger' : 'success'" size="medium">{{ scope.row.deleted ? '冻结' : '正常' }}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column
-                prop=""
                 width="220"
                 label="操作">
               <template slot-scope="scope">
-                <el-button
-                    size="mini"
-                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+<!--                <el-button-->
+<!--                    size="mini"-->
+<!--                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
                 <el-button
                     size="mini"
                     :type="scope.row.deleted ? 'success' : 'info'"
                     @click="handleFreeze(scope.row)">{{ scope.row.deleted ? "解冻" : "冻结" }}</el-button>
-                <el-button
-                    size="mini"
-                    type="danger"
-                    @click="handleEdit(scope.$index, scope.row)">删除</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -77,6 +65,7 @@
 
 <script>
 import {list, freeze} from "@/api/student";
+import {serviceUrl as baseUrl} from "@/utils/request";
 
 export default {
   name: "Student",
@@ -87,6 +76,7 @@ export default {
     return {
       list: [],
       fileList: [],
+      serviceUrl: baseUrl,
       header: {
         token: localStorage.getItem("token")
       },
