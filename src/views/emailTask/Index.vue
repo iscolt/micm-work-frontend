@@ -77,6 +77,7 @@ import {listByStatus, del, freeze} from "@/api/emailTask";
 export default {
   name: "EmailTask",
   created() {
+    this.isLogin()
     this.fetch()
   },
   data() {

@@ -32,6 +32,7 @@ export default {
     Homework,
   },
   created() {
+    this.isLogin()
     this.fetch(this.status)
   },
   data() {

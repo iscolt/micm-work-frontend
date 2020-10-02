@@ -70,6 +70,7 @@ import {serviceUrl as baseUrl} from "@/utils/request";
 export default {
   name: "Student",
   created() {
+    this.isLogin()
     this.fetch()
   },
   data() {

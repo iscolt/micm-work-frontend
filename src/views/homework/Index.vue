@@ -142,6 +142,7 @@ const defaultForm = {
 export default {
   name: "Homework",
   created() {
+    this.isLogin()
     this.fetch()
   },
   data() {
