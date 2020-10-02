@@ -23,7 +23,7 @@
     <el-card v-for="(o, index) in list" :key="index" class="box-card" shadow="hover" style="margin: 10px">
       <div>
         <div style="display: flex;">
-          <h4>{{ o.name }} <el-tag size="mini">{{ o.subMethod === 1 ? "线上" : "线下" }}</el-tag></h4>
+          <h4>{{ o.name }} <el-tag size="mini">{{ o.subMethod === 0 ? "线上" : "线下" }}</el-tag></h4>
         </div>
 
         <div style="display: flex;">
@@ -32,7 +32,7 @@
           </div>
           <el-upload
               class="upload-demo"
-              v-if="o.subMethod === 1"
+              v-if="o.subMethod === 0"
               :headers="header"
               :limit="1"
               :on-success="handleSuccess"
@@ -50,7 +50,7 @@
           <p style="flex: 6">
             <el-link :underline="false">{{ o.begin }}</el-link> - <el-link :underline="false">{{ o.end }}  截止</el-link>
             |
-            <el-link :underline="false">{{ o.subMethod === 1 ? "线上提交" : "线下提交" }}</el-link>
+            <el-link :underline="false">{{ o.subMethod === 0 ? "线上提交" : "线下提交" }}</el-link>
           </p>
           <p style="flex: 1;">
             <el-link :underline="false" type="primary" @click="querySubDetail(o)">提交统计</el-link>
