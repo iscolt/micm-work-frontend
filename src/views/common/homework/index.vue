@@ -1,29 +1,14 @@
 <template>
   <div>
-    <el-dialog title="提交统计" :visible.sync="dialogTableVisible">
-      <el-table :data="stuSubDetail">
-        <el-table-column label="学号" width="150">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.student.number }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="附件名" width="300">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.resource }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="状态" width="200">
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.status === 0 ? 'danger' : 'success'">{{scope.row.status === 0 ? '未提交' : '已提交'}}</el-tag>
-            <span style="margin-left: 10px">{{  }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-dialog>
     <el-card v-for="(o, index) in list" :key="index" class="box-card" shadow="hover" style="margin: 10px">
       <div>
         <div style="display: flex;">
-          <h4>{{ o.name }} <el-tag size="mini">{{ o.subMethod === 0 ? "线上" : "线下" }}</el-tag></h4>
+          <h4>
+            {{ o.name }}
+            <el-tag size="mini">{{ o.subMethod === 0 ? "线上" : "线下" }}</el-tag>
+            &nbsp;
+            <el-tag type="success" v-if="o.subStatus" size="mini">已提交</el-tag>
+          </h4>
         </div>
 
         <div style="display: flex;">
@@ -36,6 +21,7 @@
               :headers="header"
               :limit="1"
               :on-success="handleSuccess"
+              :on-exceed="handleExceed"
               drag
               :action="serviceUrl + '/homework/student/sub/' + o.id"
               multiple>
@@ -53,8 +39,8 @@
             <el-link :underline="false">{{ o.subMethod === 0 ? "线上提交" : "线下提交" }}</el-link>
           </p>
           <p style="flex: 1;">
-            <el-link :underline="false" type="primary" @click="querySubDetail(o)">提交统计</el-link>
-            |
+<!--            <el-link :underline="false" type="primary" @click="querySubDetail(o)">提交统计</el-link>-->
+<!--            |-->
             <el-link :underline="false" type="primary" @click="handleRss(o)">添加提醒</el-link>
           </p>
         </div>
@@ -65,7 +51,6 @@
 
 <script>
 import {rss} from "@/api/emailTask";
-import {subDetail} from "@/api/homework";
 import {serviceUrl as baseUrl} from "@/utils/request";
 
 export default {
@@ -76,8 +61,6 @@ export default {
       header: {
         token: localStorage.getItem("token")
       },
-      stuSubDetail: [],
-      dialogTableVisible: false
     }
   },
   props: {
@@ -118,15 +101,9 @@ export default {
         this.$message.warning(response.message)
       }
     },
-    querySubDetail(obj) {
-      subDetail(obj.id).then(res => {
-        if (res.code === 200) {
-          this.dialogTableVisible = true
-          this.stuSubDetail = res.data
-        } else {
-          this.$message.warning(res.message)
-        }
-      })
+    handleExceed(files, fileList) {
+      console.log(fileList, files)
+      this.$message.error("文件超出最大限制，请删除后重新选择")
     }
   }
 }

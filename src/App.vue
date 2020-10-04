@@ -22,26 +22,27 @@ export default {
     return {
       menus: [
         {index: 1, path: '/home', name: '作业大厅'},
-        {index: 2, path: '/student', name: '学生管理'},
-        {index: 3, path: '/homework', name: '作业管理'},
-        {index: 4, path: '/emailTask', name: '邮箱任务'},
+        // {index: 2, path: '/student', name: '学生管理'},
+        // {index: 3, path: '/homework', name: '作业管理'},
+        // {index: 4, path: '/emailTask', name: '邮箱任务'},
         // {index: 2, path: '/tenant', name: '我的大学'},
         // {index: 3, path: '/service', name: '服务大厅'}
       ],
       login: false,
-      user: null,
+      role: null,
       isRouterAlive: true
     };
   },
   created() {
-    console.log(1111)
     if (localStorage.getItem('token')) {
       this.login = true
-      this.user = JSON.parse(localStorage.getItem('user'))
-      if (this.user.tenantId == 0) {
+      this.role = localStorage.getItem('role')
+      if (this.role == 1) {
         this.menus = [
-          {index: 1, path: '/home', name: '首页'},
-          {index: 2, path: '/service', name: '服务大厅'}
+          {index: 1, path: '/home', name: '作业大厅'},
+          {index: 2, path: '/student', name: '学生管理'},
+          {index: 3, path: '/homework', name: '作业管理'},
+          {index: 4, path: '/emailTask', name: '邮箱任务'},
         ]
       }
     }

@@ -78,6 +78,7 @@ export default {
   name: "EmailTask",
   created() {
     this.isLogin()
+    this.isAdmin()
     this.fetch()
   },
   data() {

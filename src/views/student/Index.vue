@@ -71,6 +71,7 @@ export default {
   name: "Student",
   created() {
     this.isLogin()
+    this.isAdmin()
     this.fetch()
   },
   data() {

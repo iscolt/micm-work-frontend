@@ -1,5 +1,25 @@
 <template>
   <div>
+    <el-dialog title="提交统计" :visible.sync="dialogTableVisible">
+      <el-table :data="stuSubDetail">
+        <el-table-column label="学号" width="150">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.student.number }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="附件名" width="300">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.resource }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="状态" width="200">
+          <template slot-scope="scope">
+            <el-tag :type="scope.row.status === 0 ? 'danger' : 'success'">{{scope.row.status === 0 ? '未提交' : '已提交'}}</el-tag>
+            <span style="margin-left: 10px">{{  }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
     <el-row :gutter="20" style="margin-top: 36px">
       <el-col :span="3"><div class="grid-content bg-purple">.</div></el-col>
       <el-col :span="18">
@@ -114,6 +134,10 @@
                     size="mini"
                     type="danger"
                     @click="handleDelete(scope.row)">删除</el-button>
+                <el-button
+                    size="mini"
+                    type="primary"
+                    @click="querySubDetail(scope.row)">统计</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -125,7 +149,7 @@
 </template>
 
 <script>
-import {listByStatus, add, del} from "@/api/homework"
+import {listByStatus, add, del, subDetail} from "@/api/homework"
 import {parseTime} from "@/utils/index"
 
 const defaultForm = {
@@ -143,13 +167,16 @@ export default {
   name: "Homework",
   created() {
     this.isLogin()
+    this.isAdmin()
     this.fetch()
   },
   data() {
     return {
       list: [],
-      dialog: false,
       loading: false,
+      dialog: false,
+      dialogTableVisible: false,
+      stuSubDetail: [],
       status: -1,
       form: defaultForm,
       beginAndEnd: [new Date(), new Date()]
@@ -190,6 +217,16 @@ export default {
           this.loading = false
         })
       }
+    },
+    querySubDetail(obj) {
+      subDetail(obj.id).then(res => {
+        if (res.code === 200) {
+          this.dialogTableVisible = true
+          this.stuSubDetail = res.data
+        } else {
+          this.$message.warning(res.message)
+        }
+      })
     },
     handleDelete(obj) {
       del(obj.id).then(res => {

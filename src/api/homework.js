@@ -28,3 +28,10 @@ export function subDetail(id) {
         method: 'GET',
     })
 }
+
+export function owner() {
+    return request({
+        url: `/homework/owner`,
+        method: 'GET',
+    })
+}

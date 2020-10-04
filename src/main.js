@@ -18,8 +18,19 @@ Vue.prototype.isLogin = function(){
       console.log("已登录用户：",value);
     }
     else{
-      this.$message.error('您还没有登录！')
       this.$router.push('/login')
+    }
+  } catch (e) {
+    // error
+  }
+}
+
+Vue.prototype.isAdmin = function(){
+  // 判断缓存中是否登录过，直接登录
+  try {
+    const value = localStorage.getItem('role');
+    if (value != 1) {
+      this.$router.push('/home')
     }
   } catch (e) {
     // error

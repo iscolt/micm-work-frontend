@@ -58,7 +58,8 @@
                 if (this.form.apply == 1) {
                     login(this.form).then(res => {
                         if (res.code === 200) {
-                            localStorage.setItem("token", res.data)
+                            localStorage.setItem("token", res.data.token)
+                            localStorage.setItem("role", res.data.role)
                             // 存一个用户信息
                             this.$router.push('/')
                             location.reload()
