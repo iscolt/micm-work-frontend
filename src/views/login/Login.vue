@@ -2,7 +2,7 @@
     <div style="padding: 20px;">
         <el-page-header @back="$router.push('/')" content=""></el-page-header>
         <el-row :gutter="20" style="margin-top: 36px">
-            <el-col :span="8"><div class="grid-content bg-purple">.</div></el-col>
+            <el-col :span="8"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
             <el-col :span="8">
                 <el-form ref="form" :model="form" label-width="80px">
                     <div style="width: 100%;display: flex;justify-content: center;">

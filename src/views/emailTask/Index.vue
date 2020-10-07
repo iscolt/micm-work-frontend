@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row :gutter="20" style="margin-top: 36px">
-      <el-col :span="3"><div class="grid-content bg-purple">.</div></el-col>
+      <el-col :span="3"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
       <el-col :span="18">
         <el-row :gutter="12">
           <el-select :value="status" @change="handleSelect" placeholder="请选择">

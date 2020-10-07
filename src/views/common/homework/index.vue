@@ -95,7 +95,6 @@ export default {
     },
     handleSuccess(response) {
       if (response.code === 200) {
-        this.fetch()
         this.$message.success("操作成功")
       } else {
         this.$message.warning(response.message)
