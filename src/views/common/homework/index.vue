@@ -34,9 +34,9 @@
 
         <div style="display: flex;">
           <p style="flex: 6">
-            <el-link :underline="false" v-if="!mobile">{{ o.begin }}</el-link> {{!mobile?'-':''}} <el-link :underline="false">{{ o.end }}  截止</el-link>
-            |
-            <el-link :underline="false">{{ o.subMethod === 0 ? "线上提交" : "线下提交" }}</el-link>
+            <span v-if="!mobile"><el-link :underline="false">{{ o.begin }}</el-link> - <el-link :underline="false">{{ o.end }}</el-link></span>
+            {{!mobile?'|':''}}
+            <el-link :underline="false">{{o.countdown}}</el-link>
           </p>
           <p style="flex: 1;" v-if="!mobile">
 <!--            <el-link :underline="false" type="primary" @click="querySubDetail(o)">提交统计</el-link>-->

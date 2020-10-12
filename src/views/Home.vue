@@ -64,6 +64,7 @@ export default {
       status: 1,
       token: localStorage.getItem("token"),
       mobile: this.isMobile(),
+      timer: null,
     }
   },
   methods: {
@@ -71,6 +72,9 @@ export default {
       listByStatus(status).then(res => {
         if (res.code === 200) {
           this.homework = res.data
+          this.timer = setInterval(()=>{
+            this.timeDown()
+          },1000)
         } else {
           this.$message.error(res.message)
         }
@@ -89,6 +93,38 @@ export default {
       } else {
         this.fetch(obj.name)
       }
+    },
+    timeDown () {
+      if (!this.homework) {
+        return
+      }
+      let newHomework = []
+      this.homework.forEach(obj => {
+        const nowTime = new Date();
+        let leftTime = parseInt((new Date(obj.end).getTime()-nowTime.getTime())/1000)
+        let d = parseInt(leftTime/(24*60*60))
+        let h = this.formate(parseInt(leftTime/(60*60)%24))
+        let m = this.formate(parseInt(leftTime/60%60))
+        let s = this.formate(parseInt(leftTime%60))
+        if(leftTime <= 0){
+          obj.countdown = '已截止'
+        } else {
+          obj.countdown = `${d}天${h}小时${m}分${s}秒 后截止`
+        }
+        newHomework.push(obj)
+      })
+      this.homework = newHomework
+    },
+    formate (time) {
+      if(time>=10){
+        return time
+      }else{
+        return `0${time}`
+      }
+    },
+    destroyed() {
+      //切记页面销毁需要销毁
+      clearInterval(this.timer);
     }
   },
 }
