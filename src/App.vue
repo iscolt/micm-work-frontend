@@ -2,7 +2,7 @@
   <div class="container" >
     <Header :menus="menus" :showMsg="true" :activeIndex="'1'" :login="login"></Header>
     <router-view v-if="isRouterAlive"></router-view>
-    <Feedback></Feedback>
+    <Feedback v-if="!mobile"></Feedback>
     <Footer></Footer>
   </div>
 </template>
@@ -30,7 +30,8 @@ export default {
       ],
       login: false,
       role: null,
-      isRouterAlive: true
+      isRouterAlive: true,
+      mobile: this.isMobile()
     };
   },
   created() {
@@ -57,7 +58,7 @@ export default {
       this.$nextTick(function(){
         this.isRouterAlive=true
       })
-    }
+    },
   },
   provide(){
     return{

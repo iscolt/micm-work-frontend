@@ -1,26 +1,46 @@
 <template>
   <div class="app">
-    <el-row :gutter="20" style="margin-top: 36px">
-      <el-col :span="3"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
-      <el-col :span="18">
-        <el-row :gutter="12">
-          <el-tabs :tab-position="tabPosition" value="1" @tab-click="handleClick" style="overflow:auto">
-            <el-tab-pane label="我的" v-if="token" name="3">
-              <Homework :list="homework"/>
-            </el-tab-pane>
-            <el-tab-pane label="进行中" name="1">
-              <Homework :list="homework"/>
-            </el-tab-pane>
-            <el-tab-pane label="已结束" name="2">
-              <Homework :list="homework"/>
-            </el-tab-pane>
-            <el-tab-pane label="全部" name="-1">
-              <Homework :list="homework"/>
-            </el-tab-pane>
-          </el-tabs>
-        </el-row>
-      </el-col>
-      <el-col :span="3"><div class="grid-content bg-purple"></div></el-col>
+<!--    <el-row :gutter="20" style="margin-top: 36px">-->
+<!--      <el-col :span="3"><div class="grid-content bg-purple" style="color: white">.</div></el-col>-->
+<!--      <el-col :span="18">-->
+<!--        <el-row :gutter="12">-->
+<!--          <el-tabs :tab-position="tabPosition" value="1" @tab-click="handleClick" style="overflow:auto">-->
+<!--            <el-tab-pane label="我的" v-if="token" name="3">-->
+<!--              <Homework :list="homework"/>-->
+<!--            </el-tab-pane>-->
+<!--            <el-tab-pane label="进行中" name="1">-->
+<!--              <Homework :list="homework"/>-->
+<!--            </el-tab-pane>-->
+<!--            <el-tab-pane label="已结束" name="2">-->
+<!--              <Homework :list="homework"/>-->
+<!--            </el-tab-pane>-->
+<!--            <el-tab-pane label="全部" name="-1">-->
+<!--              <Homework :list="homework"/>-->
+<!--            </el-tab-pane>-->
+<!--          </el-tabs>-->
+<!--        </el-row>-->
+<!--      </el-col>-->
+<!--      <el-col :span="3"><div class="grid-content bg-purple"></div></el-col>-->
+<!--    </el-row>-->
+    <el-row :gutter="10" style="margin-top: 36px">
+      <el-col :xs="1" :sm="1" :md="3" :lg="3" :xl="3"><div style="color: white" class="grid-content bg-purple">.</div></el-col>
+      <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="18"><div class="grid-content bg-purple-light">
+        <el-tabs :tab-position="tabPosition" value="1" @tab-click="handleClick" style="overflow:auto">
+          <el-tab-pane label="我的" v-if="token" name="3">
+            <Homework :list="homework"/>
+          </el-tab-pane>
+          <el-tab-pane label="进行中" name="1">
+            <Homework :list="homework"/>
+          </el-tab-pane>
+          <el-tab-pane label="已结束" name="2">
+            <Homework :list="homework"/>
+          </el-tab-pane>
+          <el-tab-pane label="全部" name="-1">
+            <Homework :list="homework"/>
+          </el-tab-pane>
+        </el-tabs>
+      </div></el-col>
+      <el-col :xs="1" :sm="1" :md="3" :lg="3" :xl="3"><div class="grid-content bg-purple-light"></div></el-col>
     </el-row>
   </div>
 </template>
@@ -40,9 +60,10 @@ export default {
   data() {
     return {
       homework: [1,2,3],
-      tabPosition: 'left',
+      tabPosition: this.isMobile() ? 'top' : 'left',
       status: 1,
-      token: localStorage.getItem("token")
+      token: localStorage.getItem("token"),
+      mobile: this.isMobile(),
     }
   },
   methods: {

@@ -17,7 +17,7 @@
           </div>
           <el-upload
               class="upload-demo"
-              v-if="o.subMethod === 0"
+              v-if="o.subMethod === 0 && !mobile"
               :headers="header"
               :limit="1"
               :on-success="handleSuccess"
@@ -34,11 +34,11 @@
 
         <div style="display: flex;">
           <p style="flex: 6">
-            <el-link :underline="false">{{ o.begin }}</el-link> - <el-link :underline="false">{{ o.end }}  截止</el-link>
+            <el-link :underline="false" v-if="!mobile">{{ o.begin }}</el-link> {{!mobile?'-':''}} <el-link :underline="false">{{ o.end }}  截止</el-link>
             |
             <el-link :underline="false">{{ o.subMethod === 0 ? "线上提交" : "线下提交" }}</el-link>
           </p>
-          <p style="flex: 1;">
+          <p style="flex: 1;" v-if="!mobile">
 <!--            <el-link :underline="false" type="primary" @click="querySubDetail(o)">提交统计</el-link>-->
 <!--            |-->
             <el-link :underline="false" type="primary" @click="handleRss(o)">添加提醒</el-link>
@@ -61,6 +61,7 @@ export default {
       header: {
         token: localStorage.getItem("token")
       },
+      mobile: this.isMobile(),
     }
   },
   props: {
