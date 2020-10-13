@@ -4,7 +4,7 @@
       <div>
         <div style="display: flex;">
           <h4>
-            {{ o.name }}
+            {{ o.subject + "_" + o.name }}
             <el-tag size="mini">{{ o.subMethod === 0 ? "线上" : "线下" }}</el-tag>
             &nbsp;
             <el-tag type="success" v-if="o.subStatus" size="mini">已提交</el-tag>

@@ -30,6 +30,11 @@
                 width="180">
             </el-table-column>
             <el-table-column
+                prop="name"
+                label="姓名"
+                width="180">
+            </el-table-column>
+            <el-table-column
                 prop="email"
                 label="邮箱">
             </el-table-column>

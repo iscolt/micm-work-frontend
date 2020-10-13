@@ -7,6 +7,11 @@
             <span style="margin-left: 10px">{{ scope.row.student.number }}</span>
           </template>
         </el-table-column>
+        <el-table-column label="姓名" width="150">
+          <template slot-scope="scope">
+            <span style="margin-left: 10px">{{ scope.row.student.name }}</span>
+          </template>
+        </el-table-column>
         <el-table-column label="附件名" width="300">
           <template slot-scope="scope">
             <span style="margin-left: 10px">{{ scope.row.resource }}</span>
@@ -40,8 +45,21 @@
               direction="rtl">
             <div class="demo-drawer__content" style="margin-right: 10px">
               <el-form :model="form">
+                <el-form-item label="科目" label-width="80px">
+                  <el-select v-model="form.subject" @change="handleSelectSubject" placeholder="请选择">
+                    <el-option label="Java程序设计" value="Java程序设计"></el-option>
+                    <el-option label="软件工程" value="软件工程"></el-option>
+                    <el-option label="计算机组成原理" value="计算机组成原理"></el-option>
+                    <el-option label="计算机操作系统" value="计算机操作系统"></el-option>
+                    <el-option label="计算机网络" value="计算机网络"></el-option>
+                    <el-option label="工程数学" value="工程数学"></el-option>
+                    <el-option label="数据库系统概论" value="数据库系统概论"></el-option>
+                    <el-option label="其他" value="其他"></el-option>
+                  </el-select>
+                </el-form-item>
                 <el-form-item label="标题" label-width="80px">
                   <el-input v-model="form.name" autocomplete="off"></el-input>
+                  <p style="font-size: 5px">{{form.subject + "_" +form.name}}</p>
                 </el-form-item>
                 <el-form-item label="描述" label-width="80px">
                     <el-input type="textarea" v-model="form.description"></el-input>
@@ -63,8 +81,11 @@
                     <el-option label="线下" value="1"></el-option>
                   </el-select>
                 </el-form-item>
-
-                <el-form-item v-if="form.subMethod == 0 && !form.id" label="目标邮箱" label-width="80px">
+                <el-form-item v-if="form.subMethod == 0" label="作业命名" label-width="80px">
+                  <el-input v-model="form.resourceRule" autocomplete="off"></el-input>
+                  <p style="font-size: 5px">学号、邮箱、姓名、班级、科目、_</p>
+                </el-form-item>
+                <el-form-item v-if="form.subMethod == 0" label="目标邮箱" label-width="80px">
                   <el-select v-model="form.subEmail" placeholder="请选择">
                     <el-option label="黄老师（Java）" value="361949048@qq.com"></el-option>
                     <el-option label="徐老师（软工）" value="328721702@qq.com"></el-option>
@@ -101,6 +122,11 @@
               height="600"
               border
               style="width: 100%;margin-top: 20px">
+            <el-table-column
+                prop="subject"
+                label="科目"
+                width="150">
+            </el-table-column>
             <el-table-column
                 prop="name"
                 label="作业"
@@ -157,9 +183,11 @@ const defaultForm = {
   description: '',
   begin: '',
   end: '',
-  subMethod: 0,
+  subMethod: 1,
   subEmail: '',
+  subject: '',
   resource: '',
+  resourceRule: '',
   status: 0,
 }
 
@@ -244,6 +272,7 @@ export default {
     },
     handleEdit(homework) {
       this.form = homework
+      this.beginAndEnd = [homework.begin, homework.end]
       this.dialog = true
     },
     handleChooseDate(value) {
@@ -272,6 +301,19 @@ export default {
     cancelForm() {
       this.loading = false;
       this.dialog = false;
+    },
+    handleSelectSubject(e) {
+      this.form.subMethod = 0
+      switch (e){
+        case "Java程序设计":
+          this.form.subEmail = "361949048@qq.com"
+          return
+        case "软件工程":
+          this.form.subEmail = "328721702@qq.com"
+          return
+      }
+      this.form.subMethod = 1
+      this.form.subEmail = ""
     }
   }
 }
