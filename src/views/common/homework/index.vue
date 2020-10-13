@@ -27,7 +27,7 @@
               multiple>
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">交作业啦！将文件拖到此处，或<em>点击上传</em></div>
-            <div class="el-upload__tip" slot="tip">截至后将无法上传 | <span style="color: red">文件名参考：25马文艺</span></div>
+            <div class="el-upload__tip" slot="tip"> 友情提示：<span style="color: red">截至后将无法上传</span></div>
           </el-upload>
 
         </div>
