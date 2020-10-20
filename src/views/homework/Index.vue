@@ -252,7 +252,7 @@ export default {
       // 改变上交状态
       changeStatus(data.id).then(res => {
         if (res.code === 200) {
-          this.querySubDetail(data.homeWork)
+          this.querySubDetail(data.homeWork, -1)
         } else {
           this.$message.error(res.message)
         }
