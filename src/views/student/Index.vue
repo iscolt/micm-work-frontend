@@ -51,13 +51,13 @@
                 width="220"
                 label="操作">
               <template slot-scope="scope">
-<!--                <el-button-->
-<!--                    size="mini"-->
-<!--                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
                 <el-button
                     size="mini"
                     :type="scope.row.deleted ? 'success' : 'info'"
                     @click="handleFreeze(scope.row)">{{ scope.row.deleted ? "解冻" : "冻结" }}</el-button>
+                <el-button
+                    size="mini"
+                    @click="handleReset(scope.row)">重置</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import {list, freeze} from "@/api/student";
+import {list, freeze, reset} from "@/api/student";
 import {serviceUrl as baseUrl} from "@/utils/request";
 
 export default {
@@ -98,6 +98,32 @@ export default {
           this.$message.error(res.message)
         }
       })
+    },
+    /**
+     * 重置
+     * @param student
+     */
+    handleReset(student) {
+      this.$confirm('确定重置此账号?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        reset(student.id).then(res => {
+          if (res.code === 200) {
+            this.fetch()
+            this.$message.success(res.message)
+          } else {
+            this.$message.error(res.message)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消操作'
+        });
+      });
+
     },
     handleFreeze(student) {
       freeze(student.id).then(res => {

@@ -4,6 +4,7 @@ import { MessageBox, Message } from 'element-ui'
 
 export const serviceUrl = "http://localhost:8082/api"
 // export const serviceUrl = "http://www.iscolt.com:8082/api"
+// export const serviceUrl = "http://www.iscolt.com:8083/api"
 
 // create an axios instance
 const service = axios.create({
@@ -59,6 +60,16 @@ service.interceptors.response.use(
                 type: 'error',
                 duration: 5 * 1000
             })
+
+            // Token 过期了
+            if (res.message === "401") {
+                Message({
+                    message: '身份过期，请重新登陆',
+                    type: 'error',
+                    duration: 5 * 1000
+                })
+                localStorage.clear()
+            }
 
             // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
             if (res.code === 50008 || res.code === 50012 || res.code === 50014) {

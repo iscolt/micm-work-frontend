@@ -1,30 +1,11 @@
 <template>
   <div>
-    <el-dialog title="提交统计" :visible.sync="dialogTableVisible">
-      <el-table :data="stuSubDetail">
-        <el-table-column label="学号" width="150">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.student.number }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="姓名" width="150">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.student.name }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="附件名" width="300">
-          <template slot-scope="scope">
-            <span style="margin-left: 10px">{{ scope.row.resource }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column label="状态" width="200">
-          <template slot-scope="scope">
-            <el-tag :type="scope.row.status === 0 ? 'danger' : 'success'">{{scope.row.status === 0 ? '未提交' : '已提交'}}</el-tag>
-            <span style="margin-left: 10px">{{  }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-dialog>
+    <Statistics
+        :visible="dialogTableVisible"
+        :data="stuSubDetail"
+        :homework="homework"
+        :changeStatus="changeSubDetailStatus"
+        :changeData="querySubDetail"/>
     <el-row :gutter="20" style="margin-top: 36px">
       <el-col :span="3"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
       <el-col :span="18">
@@ -83,7 +64,7 @@
                 </el-form-item>
                 <el-form-item v-if="form.subMethod == 0" label="作业命名" label-width="80px">
                   <el-input v-model="form.resourceRule" autocomplete="off"></el-input>
-                  <p style="font-size: 5px">学号、邮箱、姓名、班级、科目、_</p>
+                  <p style="font-size: 5px">学号、邮箱、姓名、班级、科目、作业、_</p>
                 </el-form-item>
                 <el-form-item v-if="form.subMethod == 0" label="目标邮箱" label-width="80px">
                   <el-select v-model="form.subEmail" placeholder="请选择">
@@ -123,27 +104,28 @@
               border
               style="width: 100%;margin-top: 20px">
             <el-table-column
-                prop="subject"
-                label="科目"
-                width="150">
-            </el-table-column>
-            <el-table-column
                 prop="name"
                 label="作业"
-                width="180">
+                width="200">
+              <template slot-scope="scope">
+                {{scope.row.subject + "_" + scope.row.name}}
+              </template>
             </el-table-column>
             <el-table-column
                 prop="begin"
-                label="开始">
+                label="开始"
+                v-if="!isMobile">
             </el-table-column>
             <el-table-column
                 prop="end"
-                label="截止">
+                label="截止"
+                v-if="!isMobile">
             </el-table-column>
             <el-table-column
                 prop=""
                 width="200"
-                label="状态">
+                label="状态"
+                v-if="!isMobile">
               <template slot-scope="scope">
                 {{ scope.row.status === 0 ? '未开始' : scope.row.status === 1 ? '进行中' : '已结束' }}
               </template>
@@ -155,15 +137,17 @@
               <template slot-scope="scope">
                 <el-button
                     size="mini"
+                    v-if="!isMobile"
                     @click="handleEdit(scope.row)">编辑</el-button>
                 <el-button
                     size="mini"
                     type="danger"
+                    v-if="!isMobile"
                     @click="handleDelete(scope.row)">删除</el-button>
                 <el-button
                     size="mini"
                     type="primary"
-                    @click="querySubDetail(scope.row)">统计</el-button>
+                    @click="querySubDetail(scope.row, -1)">统计</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -177,6 +161,8 @@
 <script>
 import {listByStatus, add, del, subDetail} from "@/api/homework"
 import {parseTime} from "@/utils/index"
+import Statistics from "./components/statistics"
+import {changeStatus} from "@/api/studentHomework";
 
 const defaultForm = {
   name: '',
@@ -193,6 +179,9 @@ const defaultForm = {
 
 export default {
   name: "Homework",
+  components: {
+    Statistics,
+  },
   created() {
     this.isLogin()
     this.isAdmin()
@@ -204,10 +193,12 @@ export default {
       loading: false,
       dialog: false,
       dialogTableVisible: false,
-      stuSubDetail: [],
       status: -1,
       form: defaultForm,
-      beginAndEnd: [new Date(), new Date()]
+      stuSubDetail: [],
+      beginAndEnd: [new Date(), new Date()],
+      isMobile: this.isMobile(),
+      homework: null,
     }
   },
   methods: {
@@ -246,8 +237,9 @@ export default {
         })
       }
     },
-    querySubDetail(obj) {
-      subDetail(obj.id).then(res => {
+    querySubDetail(obj, status) {
+      this.homework = obj;
+      subDetail(obj.id, status).then(res => {
         if (res.code === 200) {
           this.dialogTableVisible = true
           this.stuSubDetail = res.data
@@ -256,15 +248,36 @@ export default {
         }
       })
     },
-    handleDelete(obj) {
-      del(obj.id).then(res => {
+    changeSubDetailStatus(data) {
+      // 改变上交状态
+      changeStatus(data.id).then(res => {
         if (res.code === 200) {
-          this.fetch()
-          this.$message.success(res.message)
+          this.querySubDetail(data.homeWork)
         } else {
-          this.$message.warning(res.message)
+          this.$message.error(res.message)
         }
       })
+    },
+    handleDelete(obj) {
+      this.$confirm('确定删除?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        del(obj.id).then(res => {
+          if (res.code === 200) {
+            this.fetch()
+            this.$message.success(res.message)
+          } else {
+            this.$message.warning(res.message)
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '取消操作'
+        });
+      });
     },
     handleSelect(status) {
       this.status = status
@@ -314,7 +327,7 @@ export default {
       }
       this.form.subMethod = 1
       this.form.subEmail = ""
-    }
+    },
   }
 }
 </script>

@@ -42,3 +42,15 @@ export function freeze(stuId) {
         method: 'GET',
     })
 }
+
+/**
+ * 重置学生信息
+ * @param stuId
+ * @returns {AxiosPromise}
+ */
+export function reset(stuId) {
+    return request({
+        url: `/student/reset/${stuId}`,
+        method: 'GET',
+    })
+}

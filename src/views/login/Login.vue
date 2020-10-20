@@ -44,9 +44,9 @@
             </el-form-item>
             <el-form-item label="密码">
               <el-input type="password" v-model="form.password"></el-input>
-              <!--                        <el-link type="warning" :underline="false" @click="$router.push('/forget')">-->
-              <!--                            忘记密码？-->
-              <!--                        </el-link>-->
+<!--              <el-link type="warning" :underline="false" @click="$router.push('/forget')">-->
+<!--                  忘记密码？-->
+<!--              </el-link>-->
             </el-form-item>
             <el-form-item>
               <el-radio v-model="form.apply" label="1">第一次输入的为登陆密码</el-radio>
@@ -54,7 +54,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="login_pwd">登录</el-button>
-              <el-button>注册</el-button>
+              <el-button>重置</el-button>
             </el-form-item>
           </el-form>
         </div></el-col>

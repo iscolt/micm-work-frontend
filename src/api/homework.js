@@ -22,9 +22,9 @@ export function del(id) {
     })
 }
 
-export function subDetail(id) {
+export function subDetail(id, status) {
     return request({
-        url: `/homework/student/${id}`,
+        url: `/homework/student/${id}?status=` + status,
         method: 'GET',
     })
 }
