@@ -25,6 +25,33 @@
                       <el-button slot="reference" class="user-photo"><img src="https://static.hdslb.com/images/akari.jpg" alt="" class="user-head user-hand-img" ></el-button>
                   </el-popover>
                 </li>
+              <!--头像列表-->
+              <router-link target="_blank" to="/user/account" ><li class="user-item account-item">
+                <el-popover
+                    placement="bottom"
+                    height="500"
+                    width="200"
+                    trigger="hover">
+                  <div class="account-bottom">
+                    <router-link class="un-item" target="_blank" to="/user/account">
+                      <img :src="user.avatar" alt="" class="user-hand-img"><br>
+                      <span>{{user.nickname}}</span>
+                    </router-link>
+                    <hr align=center color=#888888 size=1>
+                    <router-link class="un-item" target="_blank" to="/">LV: <span>2</span></router-link>
+                    <hr align=center color=#888888 size=1>
+                    <ul class="account-ul">
+                      <router-link target="_blank" to="/service"><li>服务中心</li></router-link>
+                      <router-link to="/user/account"><li>账号设置</li></router-link>
+                      <li @click="accOut()">退出</li>
+                    </ul>
+                  </div>
+                  <el-button slot="reference" class="user-photo"><img :src="user.avatar" alt="" class="user-head user-hand-img" ></el-button>
+                </el-popover></li>
+              </router-link>
+              <router-link to="/user/message"><li class="user-item"><el-badge :is-dot="showMsg" class="item">消息</el-badge></li></router-link>
+              <router-link to="/user/collect"><li class="user-item">收藏</li></router-link>
+              <router-link to="/user/schedule"><li class="user-item">日程</li></router-link>
             </div>
             <!--        用户未登录-->
             <div class="user" v-if="!login">

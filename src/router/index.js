@@ -38,6 +38,56 @@ const routes = [
     name: 'EmailTask',
     component: () => import(/* webpackChunkName: "about" */ '../views/emailTask/Index')
   },
+  {
+    path: '/tenant',
+    name: 'Tenant',
+    component: () => import(/* webpackChunkName: "about" */ '../views/tenant/Index')
+  },
+  {
+    path: '/tenant/practice',
+    name: 'TenantPractice',
+    component: () => import(/* webpackChunkName: "about" */ '../views/tenant/practice/Index')
+  },
+  {
+    path: '/tenant/practice/detail',
+    name: 'TenantPractice',
+    component: () => import(/* webpackChunkName: "about" */ '../views/tenant/practice/Detail')
+  },
+  {
+    path: '/tenant/practice/create',
+    name: 'TenantPracticeCreate',
+    component: () => import(/* webpackChunkName: "about" */ '../views/tenant/practice/Create')
+  },
+  {
+    path: '/tenant/practice/myCreate',
+    name: 'TenantPracticeMyCreate',
+    component: () => import(/* webpackChunkName: "about" */ '../views/tenant/practice/MyCreate')
+  },
+  {
+    path: '/user/schedule',
+    name: 'UserAccount',
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/Schedule')
+  },
+  {
+    path: '/user/message',
+    name: 'UserAccount',
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/Message')
+  },
+  {
+    path: '/user/collect',
+    name: 'UserAccount',
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/Collect')
+  },
+  {
+    path: '/user/account',
+    name: 'UserAccount',
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/account/Index')
+  },
+  {
+    path: '/user/account/set',
+    name: 'AccountSet',
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/account/Set')
+  },
 ]
 
 const router = new VueRouter({
