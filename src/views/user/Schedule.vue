@@ -83,6 +83,11 @@ export default {
 	//生命周期 - 创建完成（可以访问当前this实例）
 	created() {
 		this.isLogin()
+    this.$notify({
+      title: '提示',
+      message: '此页面功能完善中',
+      position: 'bottom-right'
+    });
 		// this.getPractice()
 	},
 	//生命周期 - 挂载完成（可以访问DOM元素）

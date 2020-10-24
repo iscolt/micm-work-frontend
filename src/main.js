@@ -32,6 +32,7 @@ Vue.prototype.isAdmin = function(){
     if (value != 1) {
       this.$router.push('/home')
     }
+    return true
   } catch (e) {
     // error
   }

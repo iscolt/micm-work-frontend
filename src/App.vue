@@ -41,7 +41,7 @@ export default {
       if (this.role == 1) {
         this.menus = [
           {index: 1, path: '/home', name: '作业大厅'},
-          {index: 2, path: '/tenant', name: '我的大学'},
+          // {index: 2, path: '/tenant', name: '我的大学'},
           {index: 3, path: '/student', name: '学生管理'},
           {index: 4, path: '/homework', name: '作业管理'},
           {index: 5, path: '/emailTask', name: '邮箱任务'},

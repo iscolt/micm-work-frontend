@@ -127,9 +127,9 @@
         name: "Index",
         created() {
             this.isLogin()
-            this.form = JSON.parse(localStorage.getItem('user'))
-            this.mPswForm.username = this.form.username
-            this.mEmForm.username = this.form.username
+            // this.form = JSON.parse(localStorage.getItem('user'))
+            // this.mPswForm.username = this.form.username
+            // this.mEmForm.username = this.form.username
         },
         data() {
             return {

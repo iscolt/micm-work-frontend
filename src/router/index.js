@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/(home|)',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
@@ -62,6 +62,11 @@ const routes = [
     path: '/tenant/practice/myCreate',
     name: 'TenantPracticeMyCreate',
     component: () => import(/* webpackChunkName: "about" */ '../views/tenant/practice/MyCreate')
+  },
+  {
+    path: '/user',
+    name: 'UserCenter',
+    component: () => import(/* webpackChunkName: "about" */ '../views/user/Index')
   },
   {
     path: '/user/schedule',
