@@ -84,12 +84,16 @@ export default {
   data() {
     return {
       list: [],
-      status: -1,
+      status: '全部',
     }
   },
   methods: {
     fetch() {
-      listByStatus(this.status).then(res => {
+      let sta = this.status;
+      if (this.status == '全部') {
+        sta = -1;
+      }
+      listByStatus(sta).then(res => {
         if (res.code === 200) {
           this.list = res.data
         } else {

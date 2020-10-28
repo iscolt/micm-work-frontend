@@ -193,7 +193,7 @@ export default {
       loading: false,
       dialog: false,
       dialogTableVisible: false,
-      status: -1,
+      status: '全部',
       form: defaultForm,
       stuSubDetail: [],
       beginAndEnd: [new Date(), new Date()],
@@ -206,7 +206,11 @@ export default {
       if (!this.status) {
         this.status = -1
       }
-      listByStatus(this.status).then(res => {
+      let sta = this.status;
+      if (this.status === '全部') {
+        sta = -1
+      }
+      listByStatus(sta).then(res => {
         if (res.code === 200) {
           this.list = res.data
         } else {

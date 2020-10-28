@@ -65,7 +65,7 @@
       </el-col>
       <el-col :span="6">
         <div class="grid-content bg-purple">
-          <p><el-link :underline="false">{{ isAdmin ? "Admin" : "Guest" }}</el-link></p>
+          <p><el-link :underline="false">测试用户001</el-link></p>
           <p><el-link :underline="false">20计科01班</el-link></p>
           <p><el-link :underline="false">南京工业大学浦江学院</el-link></p>
         </div>
@@ -76,15 +76,15 @@
             <div class="count">
               <div class="count_item">
                 <p>活动</p>
-                <p>{{isAdmin ? 0 : 6}}/15</p>
+                <p>{{6}}/15</p>
               </div>
               <div class="count_item">
                 <p>绩点</p>
-                <p>{{isAdmin ? 0 : 3.0}}/4.5</p>
+                <p>{{3.0}}/4.5</p>
               </div>
               <div class="count_item">
                 <p>学分</p>
-                <p>{{isAdmin ? 0 : 56}}/120</p>
+                <p>{{56}}/120</p>
               </div>
             </div>
           </el-card>
@@ -338,7 +338,6 @@ export default {
         score: 90,
         status: 1,
       }],
-      isAdmin: this.isAdmin(),
       visible: false,
       sets: {
         showAdd: true,

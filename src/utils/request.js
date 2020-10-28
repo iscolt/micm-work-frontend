@@ -2,9 +2,9 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 
 
-export const serviceUrl = "http://localhost:8082/api"
+// export const serviceUrl = "http://localhost:8082/api"
 // export const serviceUrl = "http://www.iscolt.com:8082/api"
-// export const serviceUrl = "http://www.iscolt.com:8083/api"
+export const serviceUrl = "http://www.iscolt.com:8083/api"
 
 // create an axios instance
 const service = axios.create({

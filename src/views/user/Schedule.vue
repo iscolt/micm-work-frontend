@@ -12,15 +12,15 @@
 						:native="false">
 					<el-tag @click="clickDate = null" size="mini" >全部</el-tag>
 					<el-timeline style="padding-right: 15px">
-						<el-timeline-item v-for="(o, index) in list" v-show="o.ymd == clickDate || clickDate == null" :key="index" :timestamp="o.begin" placement="top">
+						<el-timeline-item v-for="(o, index) in list" :key="index" :timestamp="o.begin" placement="top">
 							<el-card class="box-card" shadow="hover">
-								<h4>{{o.title}}
-									<el-tag v-if="o.status == 10" size="mini" type="warning">早退</el-tag>
-									<el-tag v-if="o.status == 1" size="mini" type="warning">迟到</el-tag>
-									<el-tag v-if="o.status == 0" size="mini" type="danger">缺席</el-tag>
-									<el-tag v-if="o.status == 11" size="mini" type="success">完成</el-tag>
+								<h4>{{ o.title }}
+									<el-tag size="mini" type="info">{{ o.tag }}</el-tag>
 								</h4>
-								<p><el-link :underline="false">{{o.time}}</el-link></p>
+								<p>
+                  <el-link :underline="false">{{ clickDate }} {{ o.time }}</el-link> -
+                  <el-link :underline="false">{{ clickDate }} {{ o.endTime }}</el-link>
+                </p>
 							</el-card>
 						</el-timeline-item>
 					</el-timeline>
@@ -39,9 +39,34 @@ export default {
 	components: {},
 	data() {
 		return {
-			clickDate: null,
+			clickDate: "2020-10-24",
 			date: new Date(),
-			list: [1, 3, 4, 5, 6, 7, 8]
+			list: [{
+        title: 'Java 程序设计',
+        tag: '课程',
+        time: '08:30',
+        endTime: '10:05'
+      }, {
+        title: '20年秋季就业讲座',
+        tag: '讲座',
+        time: '10:15',
+        endTime: '12:00'
+      }, {
+        title: 'Python 程序设计',
+        tag: '课程',
+        time: '13:50',
+        endTime: '15:00'
+      }, {
+        title: 'UI设计',
+        tag: '课程',
+        time: '15:10',
+        endTime: '16:50'
+      }, {
+        title: '20级迎新晚会',
+        tag: '活动',
+        time: '18:00',
+        endTime: '20:30'
+      }]
 		};
 	},
 	//监听属性 类似于data概念

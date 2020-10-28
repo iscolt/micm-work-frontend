@@ -46,6 +46,11 @@ export default {
           {index: 4, path: '/homework', name: '作业管理'},
           {index: 5, path: '/emailTask', name: '邮箱任务'},
         ]
+      } else {
+        this.menus = [
+          {index: 1, path: '/home', name: '作业大厅'},
+          {index: 2, path: '/user', name: '我的大学'},
+        ]
       }
     }
   },

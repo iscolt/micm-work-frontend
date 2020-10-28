@@ -4,10 +4,14 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import echarts from 'echarts'
+
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);
+
+Vue.prototype.$echarts = echarts;
 
 Vue.prototype.isLogin = function(){
   // 判断缓存中是否登录过，直接登录

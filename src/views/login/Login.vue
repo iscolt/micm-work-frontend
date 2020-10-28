@@ -81,7 +81,7 @@
         created() {
           if (localStorage.getItem('token')) {
               this.$message('请不要重复登陆！')
-              this.$router.push('/')
+              this.$router.push('/home')
           }
         },
         methods: {
@@ -92,7 +92,7 @@
                             localStorage.setItem("token", res.data.token)
                             localStorage.setItem("role", res.data.role)
                             // 存一个用户信息
-                            this.$router.push('/')
+                            this.$router.push('/home')
                             location.reload()
                         } else {
                             this.$message.error(res.message)

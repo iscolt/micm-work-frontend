@@ -127,6 +127,11 @@
         name: "Index",
         created() {
             this.isLogin()
+          this.$notify({
+            title: '提示',
+            message: '此页面功能完善中',
+            position: 'bottom-right'
+          });
             // this.form = JSON.parse(localStorage.getItem('user'))
             // this.mPswForm.username = this.form.username
             // this.mEmForm.username = this.form.username
