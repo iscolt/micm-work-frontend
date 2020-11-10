@@ -55,11 +55,14 @@ export default {
     Homework,
   },
   created() {
+    if (!this.isLogin()) {
+      return ;
+    }
     this.fetch(this.status)
   },
   data() {
     return {
-      homework: [1,2,3],
+      homework: [],
       tabPosition: this.isMobile() ? 'top' : 'left',
       status: 1,
       token: localStorage.getItem("token"),

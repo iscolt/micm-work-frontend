@@ -2,8 +2,8 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 
 
-// export const serviceUrl = "http://localhost:8082/api"
-export const serviceUrl = "http://www.iscolt.com:8082/api"
+export const serviceUrl = "http://localhost:8082/api"
+// export const serviceUrl = "http://www.iscolt.com:8082/api"
 // export const serviceUrl = "http://www.iscolt.com:8083/api"
 
 // create an axios instance
@@ -54,6 +54,16 @@ service.interceptors.response.use(
         const res = response.data
 
         // if the custom code is not 20000, it is judged as an error.
+
+        if (res.code === 401) {
+            Message({
+                message: '身份过期，请重新登陆',
+                type: 'error',
+                duration: 5 * 1000
+            })
+            localStorage.clear()
+        }
+
         if (res.code !== 200) {
             Message({
                 message: res.message || 'Error',
@@ -84,7 +94,7 @@ service.interceptors.response.use(
                     // })
                 })
             }
-            return Promise.reject(new Error(res.message || 'Error'))
+            return Promise.reject(new Error(res.message || '系统错误'))
         } else {
             return res
         }

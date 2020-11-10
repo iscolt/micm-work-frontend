@@ -27,16 +27,23 @@
             <div class="demo-drawer__content" style="margin-right: 10px">
               <el-form :model="form">
                 <el-form-item label="科目" label-width="80px">
-                  <el-select v-model="form.subject" @change="handleSelectSubject" placeholder="请选择">
-                    <el-option label="Java程序设计" value="Java程序设计"></el-option>
-                    <el-option label="软件工程" value="软件工程"></el-option>
-                    <el-option label="计算机组成原理" value="计算机组成原理"></el-option>
-                    <el-option label="计算机操作系统" value="计算机操作系统"></el-option>
-                    <el-option label="计算机网络" value="计算机网络"></el-option>
-                    <el-option label="工程数学" value="工程数学"></el-option>
-                    <el-option label="数据库系统概论" value="数据库系统概论"></el-option>
-                    <el-option label="其他" value="其他"></el-option>
-                  </el-select>
+                  <el-autocomplete
+                      class="inline-input"
+                      v-model="form.subject"
+                      :fetch-suggestions="querySearch"
+                      placeholder="请输入内容"
+                      @select="handleSelectSubject"
+                  ></el-autocomplete>
+<!--                  <el-select v-model="form.subject" @change="handleSelectSubject" placeholder="请选择">-->
+<!--                    <el-option label="Java程序设计" value="Java程序设计"></el-option>-->
+<!--                    <el-option label="软件工程" value="软件工程"></el-option>-->
+<!--                    <el-option label="计算机组成原理" value="计算机组成原理"></el-option>-->
+<!--                    <el-option label="计算机操作系统" value="计算机操作系统"></el-option>-->
+<!--                    <el-option label="计算机网络" value="计算机网络"></el-option>-->
+<!--                    <el-option label="工程数学" value="工程数学"></el-option>-->
+<!--                    <el-option label="数据库系统概论" value="数据库系统概论"></el-option>-->
+<!--                    <el-option label="其他" value="其他"></el-option>-->
+<!--                  </el-select>-->
                 </el-form-item>
                 <el-form-item label="标题" label-width="80px">
                   <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -67,11 +74,12 @@
                   <p style="font-size: 5px">学号、邮箱、姓名、班级、科目、作业、_</p>
                 </el-form-item>
                 <el-form-item v-if="form.subMethod == 0" label="目标邮箱" label-width="80px">
-                  <el-select v-model="form.subEmail" placeholder="请选择">
-                    <el-option label="黄老师（Java）" value="361949048@qq.com"></el-option>
-                    <el-option label="徐老师（软工）" value="328721702@qq.com"></el-option>
-                    <el-option label="学委" value="1329208516@qq.com"></el-option>
-                  </el-select>
+                  <el-input v-model="form.subEmail" type="email" autocomplete="off"></el-input>
+<!--                  <el-select v-model="form.subEmail" placeholder="请选择">-->
+<!--                    <el-option label="黄老师（Java）" value="361949048@qq.com"></el-option>-->
+<!--                    <el-option label="徐老师（软工）" value="328721702@qq.com"></el-option>-->
+<!--                    <el-option label="学委" value="1329208516@qq.com"></el-option>-->
+<!--                  </el-select>-->
                 </el-form-item>
 <!--                <el-form-item label="附件" label-width="80px">-->
 <!--                  <el-upload-->
@@ -186,6 +194,7 @@ export default {
     this.isLogin()
     this.isAdmin()
     this.fetch()
+    this.restaurants = this.loadAll();
   },
   data() {
     return {
@@ -199,6 +208,7 @@ export default {
       beginAndEnd: [new Date(), new Date()],
       isMobile: this.isMobile(),
       homework: null,
+      restaurants: [],
     }
   },
   methods: {
@@ -299,17 +309,15 @@ export default {
       if (this.loading) {
         return;
       }
-      this.$confirm('确定要提交表单吗？')
-          .then(_ => {
+      this.$confirm('确定要提交表单吗？').then(_ => {
             console.log(_)
             this.loading = true;
             this.submit()
             done();
-          })
-          .catch(_ => {
-            done();
-            console.log(_)
-          });
+      }).catch(_ => {
+        done();
+        console.log(_)
+      });
     },
     cancelForm() {
       this.loading = false;
@@ -317,16 +325,41 @@ export default {
     },
     handleSelectSubject(e) {
       this.form.subMethod = 0
-      switch (e){
+      switch (e.value){
         case "Java程序设计":
-          this.form.subEmail = "361949048@qq.com"
+          // this.form.subEmail = "361949048@qq.com"
           return
         case "软件工程":
-          this.form.subEmail = "328721702@qq.com"
+          // this.form.subEmail = "328721702@qq.com"
           return
       }
       this.form.subMethod = 1
       this.form.subEmail = ""
+    },
+    querySearch(queryString, cb) {
+      var restaurants = this.restaurants;
+      var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
+      // 调用 callback 返回建议列表的数据
+      cb(results);
+    },
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+    loadAll() {
+      return [
+        { "value": "Java程序设计" },
+        { "value": "软件工程" },
+        { "value": "计算机组成原理" },
+        { "value": "计算机操作系统" },
+        { "value": "计算机网络" },
+        { "value": "工程数学" },
+        { "value": "数据库系统概论" },
+        { "value": "离散数学" },
+        { "value": "青年大学习" },
+        { "value": "其它" },
+      ];
     },
   }
 }

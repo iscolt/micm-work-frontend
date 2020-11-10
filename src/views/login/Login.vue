@@ -54,7 +54,7 @@
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="login_pwd">登录</el-button>
-              <el-button>重置</el-button>
+              <el-button @click="$router.push('/reg')">注册</el-button>
             </el-form-item>
           </el-form>
         </div></el-col>

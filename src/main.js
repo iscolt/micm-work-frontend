@@ -16,9 +16,11 @@ Vue.prototype.isLogin = function(){
     if (value) {
       //有登录信息
       console.log("已登录用户：",value);
+      return true;
     }
     else{
       this.$router.push('/login')
+      return false;
     }
   } catch (e) {
     // error

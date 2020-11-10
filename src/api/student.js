@@ -8,6 +8,14 @@ export function login(data) {
     })
 }
 
+export function reg(data) {
+    return request({
+        url: '/student/reg',
+        method: 'POST',
+        data: data,
+    })
+}
+
 export function importFormExcel(data) {
     return request({
         url: '/student/import/excel',

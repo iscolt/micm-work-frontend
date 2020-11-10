@@ -24,6 +24,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/login/Login')
   },
   {
+    path: '/reg',
+    name: 'Reg',
+    component: () => import(/* webpackChunkName: "about" */ '../views/login/Reg')
+  },
+  {
     path: '/student',
     name: 'Student',
     component: () => import(/* webpackChunkName: "about" */ '../views/student/Index')
@@ -37,6 +42,11 @@ const routes = [
     path: '/emailTask',
     name: 'EmailTask',
     component: () => import(/* webpackChunkName: "about" */ '../views/emailTask/Index')
+  },
+  {
+    path: '/lanqiao',
+    name: 'LanQiao',
+    component: () => import(/* webpackChunkName: "about" */ '../views/gather/Index')
   },
 ]
 
