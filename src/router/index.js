@@ -43,11 +43,11 @@ const routes = [
     name: 'EmailTask',
     component: () => import(/* webpackChunkName: "about" */ '../views/emailTask/Index')
   },
-  {
-    path: '/lanqiao',
-    name: 'LanQiao',
-    component: () => import(/* webpackChunkName: "about" */ '../views/gather/Index')
-  },
+  // {
+  //   path: '/lanqiao',
+  //   name: 'LanQiao',
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/gather/Index')
+  // },
 ]
 
 const router = new VueRouter({

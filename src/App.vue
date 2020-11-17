@@ -22,7 +22,7 @@ export default {
     return {
       menus: [
         {index: 1, path: '/home', name: '作业大厅'},
-        {index: 5, path: '/lanqiao', name: '蓝桥杯校内选拔报名'},
+        // {index: 5, path: '/lanqiao', name: '蓝桥杯校内选拔报名'},
         // {index: 2, path: '/student', name: '学生管理'},
         // {index: 3, path: '/homework', name: '作业管理'},
         // {index: 4, path: '/emailTask', name: '邮箱任务'},
@@ -45,7 +45,7 @@ export default {
           {index: 2, path: '/student', name: '学生管理'},
           {index: 3, path: '/homework', name: '作业管理'},
           {index: 4, path: '/emailTask', name: '邮箱任务'},
-          {index: 5, path: '/lanqiao', name: '蓝桥杯校内选拔报名'},
+          // {index: 5, path: '/lanqiao', name: '蓝桥杯校内选拔报名'},
         ]
       }
     }
