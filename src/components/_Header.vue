@@ -9,6 +9,7 @@
             <el-menu-item v-for="menu in menus" :index="menu.path" :key="menu.index">{{menu.name}}</el-menu-item>
             <!--用户已登录-->
             <div class="user" v-if="login">
+                {{ user.name }}
                 <!--头像列表-->
                 <li class="user-item account-item">
                   <el-popover

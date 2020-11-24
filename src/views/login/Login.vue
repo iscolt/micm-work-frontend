@@ -91,6 +91,7 @@
                         if (res.code === 200) {
                             localStorage.setItem("token", res.data.token)
                             localStorage.setItem("role", res.data.role)
+                            localStorage.setItem("user", JSON.stringify(res.data))
                             // 存一个用户信息
                             this.$router.push('/')
                             location.reload()
