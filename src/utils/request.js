@@ -2,11 +2,11 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 
 
-export const serviceUrl = "http://localhost:8082/api"
-// export const serviceUrl = "http://www.iscolt.com:8082/api"
+// export const serviceUrl = "http://localhost:8082/api"
+export const serviceUrl = "http://www.iscolt.com:8082/api"
 // export const serviceUrl = "http://www.iscolt.com:8083/api"
 
-// create an axios instance
+// create an axios instancenpm
 const service = axios.create({
     // 内网穿透接口
     // baseURL: "http://31v444t816.wicp.vip/api", // url = base url + request url

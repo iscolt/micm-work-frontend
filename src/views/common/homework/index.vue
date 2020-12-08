@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card v-for="(o, index) in list" :key="index" class="box-card" shadow="hover" style="margin: 10px">
+    <el-card v-for="(o, index) in list" v-show="!showSubed||(showSubed && !o.subStatus && o.status != 2)" :key="index" class="box-card" shadow="hover" style="margin: 10px">
       <div>
         <div style="display: flex;">
           <h4>
@@ -10,7 +10,6 @@
             <el-tag type="success" v-if="o.subStatus" size="mini">已提交</el-tag>
           </h4>
         </div>
-
         <div style="display: flex;">
           <div style="flex: 6">
             <div>{{ o.description }}</div>
@@ -66,6 +65,7 @@ export default {
   },
   props: {
     list: Array,
+    showSubed: Boolean
   },
   methods: {
     handleRss(homework) {

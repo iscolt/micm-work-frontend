@@ -48,6 +48,21 @@ const routes = [
     name: 'Gather',
     component: () => import(/* webpackChunkName: "about" */ '../views/gather/Index')
   },
+  {
+    path: '/article',
+    name: 'Article',
+    component: () => import(/* webpackChunkName: "about" */ '../views/article/Index')
+  },
+  {
+    path: '/articles',
+    name: 'Articles',
+    component: () => import(/* webpackChunkName: "about" */ '../views/article/List')
+  },
+  {
+    path: '/articles/add',
+    name: 'ArticlesAdd',
+    component: () => import(/* webpackChunkName: "about" */ '../views/article/Add')
+  },
 ]
 
 const router = new VueRouter({

@@ -27,7 +27,8 @@
       <el-col :xs="22" :sm="22" :md="18" :lg="18" :xl="18"><div class="grid-content bg-purple-light">
         <el-tabs :tab-position="tabPosition" value="1" @tab-click="handleClick" style="overflow:auto">
           <el-tab-pane label="我的" v-if="token" name="3">
-            <Homework :list="homework"/>
+            <el-checkbox v-model="showSubed" style="margin-left: 10px">进行中&未提交的作业</el-checkbox>
+            <Homework :list="homework" :showSubed="showSubed"/>
           </el-tab-pane>
           <el-tab-pane label="进行中" name="1">
             <Homework :list="homework"/>
@@ -68,6 +69,7 @@ export default {
       token: localStorage.getItem("token"),
       mobile: this.isMobile(),
       timer: null,
+      showSubed: false,
     }
   },
   methods: {
