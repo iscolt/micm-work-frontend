@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row :gutter="20" style="margin-top: 36px">
-      <el-col :span="3"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
-      <el-col :span="18">
+      <el-col :span="1"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
+      <el-col :span="22">
         <el-row :gutter="12">
           <el-upload
               class="upload-demo"
@@ -63,7 +63,7 @@
           </el-table>
         </el-row>
       </el-col>
-      <el-col :span="3"><div class="grid-content bg-purple"></div></el-col>
+      <el-col :span="1"><div class="grid-content bg-purple"></div></el-col>
     </el-row>
   </div>
 </template>

@@ -23,12 +23,8 @@ export default {
       menus: [
         {index: 1, path: '/home', name: '作业大厅'},
         {index: 2, path: '/article', name: '文档中心'},
-        {index: 7, path: '/gather', name: '传智杯校内选拔报名'},
-        // {index: 2, path: '/student', name: '学生管理'},
-        // {index: 3, path: '/homework', name: '作业管理'},
-        // {index: 4, path: '/emailTask', name: '邮箱任务'},
-        // {index: 2, path: '/tenant', name: '我的大学'},
-        // {index: 3, path: '/service', name: '服务大厅'}
+        {index: 3, path: '/question', name: '题库'},
+        // {index: 7, path: '/gather', name: '传智杯校内选拔报名'},
       ],
       login: false,
       role: null,
@@ -44,11 +40,9 @@ export default {
         this.menus = [
           {index: 1, path: '/home', name: '作业大厅'},
           {index: 2, path: '/article', name: '文档中心'},
-          {index: 3, path: '/student', name: '学生管理'},
-          {index: 4, path: '/homework', name: '作业管理'},
-          {index: 5, path: '/emailTask', name: '邮箱任务'},
-          {index: 6, path: '/articles', name: '文档管理'},
-          {index: 7, path: '/gather', name: '传智杯校内选拔报名'},
+          {index: 3, path: '/question', name: '题库'},
+          {index: 4, path: '/dashboard', name: '仪表盘'},
+          // {index: 8, path: '/gather', name: '传智杯校内选拔报名'},
         ]
       }
     }

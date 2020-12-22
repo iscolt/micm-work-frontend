@@ -4,14 +4,22 @@
       <el-col :span="1"><div class="grid-content bg-purple" style="color: white">.</div></el-col>
       <el-col :span="22">
         <el-row :gutter="12">
-          <el-select :value="status" @change="handleSelect" placeholder="请选择">
-            <el-option label="全部" value="-1">全部</el-option>
-            <el-option label="未发送" value="0"></el-option>
-            <el-option label="已发送" value="1"></el-option>
-            <el-option label="发送失败" value="2"></el-option>
-          </el-select>
-          &nbsp;
-          <el-button type="primary" @click="$router.push('/articles/add')">发布文章</el-button>
+          <el-input style="width: 30%" v-model="subject" placeholder="请输入内容"></el-input>
+          <el-upload
+              class="upload-demo"
+              :action="serviceUrl + `/question/import/excel?subject=${subject}`"
+              :headers="header"
+              :on-preview="handlePreview"
+              :on-remove="handleRemove"
+              :before-remove="beforeRemove"
+              multiple
+              :limit="1"
+              :on-exceed="handleExceed"
+              :on-success="handleSuccess"
+              :file-list="fileList">
+            <el-button size="small" type="primary">批量导入</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传Excel文件</div>
+          </el-upload>
           <el-table
               :data="list"
               height="600"
@@ -74,12 +82,46 @@
 </template>
 
 <script>
+import {serviceUrl as baseUrl} from "@/utils/request";
+
 export default {
   name: "List",
+  data() {
+    return {
+      fileList: [],
+      serviceUrl: baseUrl,
+      header: {
+        token: localStorage.getItem("token")
+      },
+      subject: '计算机组成原理',
+    }
+  },
   created() {
     this.isLogin()
     this.isAdmin()
   },
+  methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+    },
+    beforeRemove(file) {
+      return this.$confirm(`确定移除 ${ file.name }？`);
+    },
+    handleSuccess(response) {
+      if (response.code === 200) {
+        this.fetch()
+        this.$message.success("成功导入")
+      } else {
+        this.$message.warning("导入失败，移除文件重新导入")
+      }
+    },
+  }
 }
 </script>
 
